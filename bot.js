@@ -15,7 +15,7 @@ const ZORTOP_ID = "204333691114225665";
 const NEWEMBER_ID = "224208535691460618";
 
 
-var list_person_dm = [ZAKEBO_ID,AIR_ID,ZORTOP_ID,NEWEMBER_ID];
+var list_person_dm = [ZAKEBO_ID, AIR_ID, ZORTOP_ID, NEWEMBER_ID];
 
 const TARGET = CLETOX_ID;
 
@@ -37,8 +37,7 @@ client.on('ready', () => {
             console.log("****LE CUCK A BIEN CHANGE DE PSEUDO****");
             ChangeNames(oldmember, newmember);
         }
-        else
-        {
+        else {
             console.log("****LE CUCK EST RESTE SAGE ET N'A PAS CHANGE D'IDENTITE****");
         }
 
@@ -46,6 +45,15 @@ client.on('ready', () => {
 
 
 });
+
+
+client.on('message', (message) => {
+    if (message.content.startsWith(config.prefix) && message.user != client) {
+        detectCommand(message);
+    }
+});
+
+
 
 client.on('guildMemberUpdate', (oldmember, newmember) => {
 
@@ -57,6 +65,16 @@ client.on('guildMemberUpdate', (oldmember, newmember) => {
 });
 
 
+
+function detectCommand(message) {
+    switch (message.content.substring(1)) {
+        case "kdo":
+            message.channel.send({
+                files: ['https://risibank.fr/cache/stickers/d36/3605-full.png']
+            })
+            break;
+    }
+}
 function ChangeNames(oldmember, newmember) {
     console.log("****OPERATION CUCK EN COURS****");
     //Change everyone's name 
@@ -73,9 +91,9 @@ function ChangeNames(oldmember, newmember) {
 
 
     //Change bot's name
-     console.log("---RENAME DU BOT---");
-     client.guilds.get(SERVER_CLETOX_ID).member(client.user).setNickname(newmember.displayName);
-     console.log("Nouvelle identité du bot en place.")
+    console.log("---RENAME DU BOT---");
+    client.guilds.get(SERVER_CLETOX_ID).member(client.user).setNickname(newmember.displayName);
+    console.log("Nouvelle identité du bot en place.")
     //MP les gens pour prévenir
 
     let message = "-----------------";
@@ -86,7 +104,7 @@ function ChangeNames(oldmember, newmember) {
     message += "\n";
     message += "APRES : \n"
     message += newmember.displayName;
-    
+
     console.log("---ENVOIE DES MP---");
     list_person_dm.forEach((id) => {
         client.fetchUser(id).then(user => {
