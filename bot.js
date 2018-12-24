@@ -19,6 +19,9 @@ var list_person_dm = [ZAKEBO_ID,AIR_ID,ZORTOP_ID,Newember_ID];
 
 const TARGET = CLETOX_ID;
 
+client.login(config.token);
+
+
 client.on('ready', () => {
     console.log("Connecté en tant que " + client.user.tag);
     client.user.setActivity("Cletox se masturber", { type: "WATCHING" });
@@ -31,7 +34,12 @@ client.on('ready', () => {
 
         let newmember = client.guilds.get(SERVER_CLETOX_ID).members.get(TARGET);
         if (newmember.displayName != oldmember) {
+            console.log("****LE CUCK A BIEN CHANGE DE PSEUDO****");
             ChangeNames(oldmember, newmember);
+        }
+        else
+        {
+            console.log("****LE CUCK EST RESTE SAGE ET N'A PAS CHANGE D'IDENTITE****");
         }
 
     });
@@ -50,8 +58,9 @@ client.on('guildMemberUpdate', (oldmember, newmember) => {
 
 
 function ChangeNames(oldmember, newmember) {
-
+    console.log("****OPERATION CUCK EN COURS****");
     //Change everyone's name 
+    console.log("---CHANGEMENT DES PSEUDOS---");
     client.guilds.get(SERVER_CLETOX_ID).members.forEach((member) => {
         if (member.manageable) {
             member.setNickname(newmember.displayName);
@@ -64,7 +73,9 @@ function ChangeNames(oldmember, newmember) {
 
 
     //Change bot's name
-    client.guilds.get(SERVER_CLETOX_ID).member(client.user).setNickname(newmember.displayName);
+     console.log("---RENAME DU BOT---");
+     client.guilds.get(SERVER_CLETOX_ID).member(client.user).setNickname(newmember.displayName);
+     console.log("Nouvelle identité du bot en place.")
     //MP les gens pour prévenir
 
     let message = "-----------------";
@@ -76,10 +87,12 @@ function ChangeNames(oldmember, newmember) {
     message += "APRES : \n"
     message += newmember.displayName;
     
+    console.log("---ENVOIE DES MP---");
     list_person_dm.forEach((id) => {
         client.fetchUser(id).then(user => {
-
+            //Envoie du message
             user.send(message);
+            console.log("MP à " + user.username + " bien envoyé");
         });
     });
 
@@ -95,4 +108,4 @@ function saveName(newmember) {
 
 }
 
-client.login(config.token);
+
