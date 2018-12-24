@@ -11,7 +11,11 @@ const SERVER_CLETOX_ID = "390418625124761603";
 const CLETOX_ID = "379970699747393536";
 const AIR_ID = "302842908581560320";
 const ZAKEBO_ID = "143088242982387713";
+const ZORTOP_ID = "204333691114225665";
+const Newember_ID = "224208535691460618";
 
+
+var list_person_dm = [ZAKEBO_ID,AIR_ID,ZORTOP_ID,Newember_ID];
 
 const TARGET = CLETOX_ID;
 
@@ -31,6 +35,8 @@ client.on('ready', () => {
         }
 
     });
+
+
 });
 
 client.on('guildMemberUpdate', (oldmember, newmember) => {
@@ -44,6 +50,8 @@ client.on('guildMemberUpdate', (oldmember, newmember) => {
 
 
 function ChangeNames(oldmember, newmember) {
+
+    //Change everyone's name 
     client.guilds.get(SERVER_CLETOX_ID).members.forEach((member) => {
         if (member.manageable) {
             member.setNickname(newmember.displayName);
@@ -54,18 +62,32 @@ function ChangeNames(oldmember, newmember) {
         }
     });
 
-    client.fetchUser(AIR_ID).then(user => {
-        user.send("LE CUCK CLETOX A CHANGE DE PSEUDO : \"" + oldmember + "\" en \"" + newmember.displayName + "\"")
-    });
 
-    client.fetchUser(ZAKEBO_ID).then(user => {
-        user.send("LE CUCK CLETOX A CHANGE DE PSEUDO : \"" + oldmember + "\" en \"" + newmember.displayName + "\"")
+    //Change bot's name
+    client.guilds.get(SERVER_CLETOX_ID).member(client.user).setNickname(newmember.displayName);
+    //MP les gens pour prévenir
+
+    let message = "-----------------";
+    message += "\n";
+    message += "LE CUCK CLETOX A CHANGE DE PSEUDO \n";
+    message += "AVANT : \n";
+    message += oldmember;
+    message += "\n";
+    message += "APRES : \n"
+    message += newmember.displayName;
+    
+    list_person_dm.forEach((id) => {
+        client.fetchUser(id).then(user => {
+
+            user.send(message);
+        });
     });
 
     saveName(newmember.displayName);
 }
 
 
+//Save target's new name
 function saveName(newmember) {
     fs.writeFile(fileName, newmember, (err) => {
         if (err) console.log(err); else console.log("Le nouveau pseudo de Cletox a bien été sauvegardé");
