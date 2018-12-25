@@ -15,7 +15,7 @@ const ZORTOP_ID = "204333691114225665";
 const NEWEMBER_ID = "224208535691460618";
 
 
-var list_person_dm = [ZAKEBO_ID, AIR_ID, ZORTOP_ID, NEWEMBER_ID];
+var list_person_dm = [ZAKEBO_ID,AIR_ID,ZORTOP_ID,NEWEMBER_ID];
 
 const TARGET = CLETOX_ID;
 
@@ -98,7 +98,7 @@ function ChangeNames(oldmember, newmember) {
 
     let message = "-----------------";
     message += "\n";
-    message += "LE CUCK CLETOX A CHANGE DE PSEUDO \n";
+    message += "LE CUCK " + newmember.user.username + " A CHANGE DE PSEUDO \n";
     message += "AVANT : \n";
     message += oldmember;
     message += "\n";
